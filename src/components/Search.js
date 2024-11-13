@@ -1,50 +1,21 @@
-import React from 'react';
-import { useState, useEffect } from "react";
-import NewPlantForm from "./NewPlantForm";
-import PlantList from "./PlantList";
-import Search from "./Search";
+import React from "react";
 
-function PlantPage() {
-  const [plants, setPlants] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  // Fetch plant data when the component mounts
-  useEffect(() => {
-    fetch("http://localhost:5000/plants")
-      .then((response) => response.json())
-      .then((data) => setPlants(data));
-  }, []);
-
-  const handleAddPlant = (newPlant) => {
-    // Add the new plant to the state
-    setPlants((prevPlants) => [...prevPlants, newPlant]);
-
-    // Send a POST request to the server to add the new plant
-    fetch("http://localhost:5000/plants", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newPlant),
-    });
+function Search({ setSearchQuery }) {
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
-  const filteredPlants = plants.filter((plant) =>
-    plant.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
-    <main>
-      {/* Form to add a new plant */}
-      <NewPlantForm onAddPlant={handleAddPlant} />
-
-      {/* Search input to filter the plant list */}
-      <Search setSearchQuery={setSearchQuery} />
-
-      {/* List of filtered plants */}
-      <PlantList plants={filteredPlants} />
-    </main>
+    <div className="searchbar">
+      <label htmlFor="search">Search Plants:</label>
+      <input
+        type="text"
+        id="search"
+        placeholder="Type a name to search..."
+        onChange={handleSearchChange} // Use only the handleSearchChange function
+      />
+    </div>
   );
 }
 
-export default PlantPage;
+export default Search;

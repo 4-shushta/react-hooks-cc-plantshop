@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import NewPlantForm from "./NewPlantForm";
 import PlantList from "./PlantList";
 import Search from "./Search";
@@ -9,7 +9,7 @@ function PlantPage() {
   const [searchQuery, setSearchQuery] = useState("");
   // Fetch plant data when the component mounts
   useEffect(() => {
-    fetch("http://localhost:5000/plants")
+    fetch("http://localhost:6001/plants")
       .then((response) => response.json())
       .then((data) => setPlants(data));
   }, []);
@@ -17,7 +17,7 @@ function PlantPage() {
     // Add the new plant to the state
     setPlants((prevPlants) => [...prevPlants, newPlant]);
     // Send a POST request to the server to add the new plant
-    fetch("http://localhost:5000/plants", {
+    fetch("http://localhost:6001/plants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,3 +41,4 @@ function PlantPage() {
 }
 
 export default PlantPage;
+

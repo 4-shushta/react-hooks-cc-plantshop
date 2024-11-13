@@ -1,22 +1,21 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 
 function NewPlantForm({ onAddPlant }) {
-  // State to manage form inputs
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
-
-  // Handle form submission
+ 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPlant = {
       name,
       image,
-      price: parseFloat(price), // Convert the price to a number
+      price: parseFloat(price), 
     };
-    onAddPlant(newPlant); // Pass the new plant to the parent component
+    onAddPlant(newPlant); 
 
-    // Reset form fields
+    
     setName("");
     setImage("");
     setPrice("");
